@@ -13,7 +13,8 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon src/index.js"
+		"start": "NODE_ENV=staging nodemon src/index.js",
+		"production": "NODE_ENV=production nodemon src/index.js"
 	},
 	"repository": {
 		"type": "git",

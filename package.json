@@ -1,10 +1,28 @@
 {
-  "devDependencies": {
-    "eslint": "7.2.0",
-    "eslint-config-airbnb-base": "14.2.1",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
-  }
+	"name": "uptime-monitor-app",
+	"version": "1.0.0",
+	"description": "this is a link uptime monitoring application that continueusly watch the listed link all of time and users will be confirmed that via SMS",
+	"main": "index.js",
+	"devDependencies": {
+		"eslint": "7.2.0",
+		"eslint-config-airbnb-base": "14.2.1",
+		"eslint-config-prettier": "^7.1.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-prettier": "^3.3.1",
+		"prettier": "^2.2.1"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon src/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/msjalal3/row-node-api.git"
+	},
+	"author": "Shahjalal",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/msjalal3/row-node-api/issues"
+	},
+	"homepage": "https://github.com/msjalal3/row-node-api"
 }

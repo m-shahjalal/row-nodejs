@@ -3,6 +3,7 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const routes = require('../routes');
 const { notFoundHandler } = require('../routeHandler/notFoundHandler');
+const { parsedJSON } = require('./utilities');
 
 // handle object -scaffolding
 const handler = {};
@@ -17,7 +18,7 @@ handler.handleReqRes = (req, res) => {
 
   const requestObject = {
     path,
-    queryObject,
+    queryObject: { ...queryObject },
     method,
     headerObject,
   };
@@ -27,21 +28,23 @@ handler.handleReqRes = (req, res) => {
   let data = '';
 
   const chosenRoute = routes[path] ? routes[path] : notFoundHandler;
-
-  chosenRoute(requestObject, (status, response) => {
-    const statusCode = typeof status === 'number' ? status : 500;
-    const payload = typeof response === 'object' ? response : {};
-
-    res.setHeader('Content-Type', 'application/json');
-    res.writeHead(statusCode);
-    res.end(JSON.stringify(payload));
-  });
-
   req.on('data', (buffer) => {
     data += decoder.write(buffer);
   });
   req.on('end', () => {
     data += decoder.end();
+
+    requestObject.body = parsedJSON(data);
+
+    chosenRoute(requestObject, (status, response) => {
+      const statusCode = typeof status === 'number' ? status : 500;
+      const payload = typeof response === 'object' ? response : {};
+
+      res.setHeader('Content-Type', 'application/json');
+      res.writeHead(statusCode);
+      res.end(JSON.stringify(payload));
+    });
+
     console.log(data);
   });
 };

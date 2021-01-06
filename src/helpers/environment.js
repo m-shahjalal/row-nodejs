@@ -4,11 +4,13 @@ const environments = {};
 environments.staging = {
   port: 5000,
   name: 'staging',
+  secretKey: 'woeioliasl',
 };
 
 environments.production = {
   port: 8080,
   name: 'production',
+  secretKey: 'ancl sflfhn',
 };
 
 const currentEnvironment =

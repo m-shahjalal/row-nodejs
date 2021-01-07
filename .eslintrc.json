@@ -9,15 +9,18 @@
 	},
 	"rules": {
 		"no-console": 0,
+		"no-underscore-dangle": "off",
+		"tabWidth": 4,
 		"prettier/prettier": [
-			// "error",
+			"error",
 			{
 				"trailingComma": "es5",
 				"singleQuote": true,
 				"printWidth": 700,
-				"tabWidth": 4,
 				"semi": true,
-				"indent": ["error", "tab"]
+				"code": 80,
+				"allow": "_bar",
+				"parser": "flow"
 			}
 		]
 	},

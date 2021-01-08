@@ -37,7 +37,7 @@ handler._token.post = (request, callback) => {
 				if (hashPassword === user.password) {
 					let tokenObject = {}
 					tokenObject.id = randomToken(20)
-					tokenObject.expires = Date.now() + 60 * 60 * 1000
+					tokenObject.expires = Date.now() + 60 * 60 * 1000 * 72
 					tokenObject.phone = phone
 
 					// store the token object

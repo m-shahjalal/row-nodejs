@@ -1,7 +1,7 @@
 // dependencies
 const https = require('https')
 const queryString = require('querystring')
-const environment = require('./environment')
+const { twilio } = require('./environment')
 
 // module scaffolding
 const notifications = {}
@@ -12,17 +12,18 @@ notifications.sendMessage = (phone, msg, callback) => {
 		typeof phone === 'string' && phone.trim().length === 11
 			? phone.trim()
 			: false
+
 	const userMsg =
 		typeof msg === 'string' &&
 		msg.trim().length > 0 &&
-		msg.trim().length < 1600
+		msg.trim().length <= 1600
 			? msg.trim()
 			: false
 
-	if (phone && msg) {
+	if (userPhone && userMsg) {
 		// configure the twilio payload
 		const payload = {
-			Form: '+12512205833',
+			From: twilio.fromPhone,
 			To: `+88${userPhone}`,
 			Body: userMsg,
 		}
@@ -32,22 +33,24 @@ notifications.sendMessage = (phone, msg, callback) => {
 
 		// configure request object
 		const requestDetails = {
-			hostName: 'api.twilio.com',
+			hostname: 'api.twilio.com',
 			method: 'POST',
-			path: `/2010-04-01/Accounts/AC416aab8db44ffd00d7f673d9ab4cef0f/Messages.json`,
-			auth: `AC416aab8db44ffd00d7f673d9ab4cef0f:b8e0afe699d770c2a87752029c4da4d3`,
+			path: `/2010-04-01/Accounts/${twilio.accountSid}/Messages.json`,
+			auth: `${twilio.accountSid}:${twilio.accountToken}`,
 			headers: {
-				'Content-Type': 'application/X-www-form-urlencoded',
+				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		}
 
 		// instantiate request
 		const req = https.request(requestDetails, (res) => {
+			// get the status of the sent request
 			const status = res.statusCode
+			// callback successfully if the request went through
 			if (status === 200 || status === 201) {
-				callback(false)
+				callback('Successful, message was >>>', userMsg)
 			} else {
-				callback(`status code was ${status}`)
+				callback(`Status code returned was ${status}`)
 			}
 		})
 

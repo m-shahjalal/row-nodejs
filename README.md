@@ -1,4 +1,5 @@
-# row-node-api
+# practice project
 
-this is a practice project form learn with soumit youtube channel
-channel link is [learn with soumit](https://www.youtube.com/channel/UCFM3gG5IHfogarxlKcIHCAg)
+## row nodejs
+
+### a API for url monitoring by now nodejs and without any dependecy
